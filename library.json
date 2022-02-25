@@ -1,6 +1,6 @@
 {
     "name": "Bosch_BME280_Arduino",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "Arduino Wrapper Class for use of BME280 Sensor based on the original Bosch Sensortec Driver",
     "keywords": ["temperature", "humidity", "pressure", "bme280", "Bosch", "Sensortec"],
     "authors":
