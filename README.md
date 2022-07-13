@@ -87,7 +87,7 @@ void loop() {
 
 
 ## Compatibility
-* Tested with Arduino Nano.
+* Tested with Arduino Nano, ESP8266 and ESP32
 
 ## Copyright
 The Files:

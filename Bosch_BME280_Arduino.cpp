@@ -51,8 +51,11 @@ int8_t BME::Bosch_BME280::begin() {
   dev.delay_us = &BME::Bosch_BME280::delay_us;
 
   // SDA, SCL needed for ESPs
-#if ESP8266 || ESP32
+#if defined (ESP8266)
   Wire.begin(_sda_pin, _scl_pin);
+#elif defined (ESP32)
+  Wire.setPins(_sda_pin, _scl_pin);
+  Wire.begin();
 #else
   Wire.begin();
 #endif
