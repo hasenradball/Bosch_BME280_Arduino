@@ -1,7 +1,12 @@
 {
     "name": "Bosch_BME280_Arduino",
-    "version": "0.0.5",
-    "description": "Arduino Wrapper Class for use of BME280 Sensor based on the original Bosch Sensortec Driver",
+    "version": "1.0.0",
+    "repository":
+    {
+        "type": "git",
+        "url": "https://github.com/hasenradball/Bosch_BME280_Arduino"
+    },
+    "description": "Arduino Wrapper Class for use of BME280 Sensor based on the original Bosch Sensortec Driver v3.5.1",
     "keywords": ["temperature", "humidity", "pressure", "bme280", "Bosch", "Sensortec"],
     "authors":
     {
@@ -10,6 +15,6 @@
         "url": "http://esp8266-01-adapter.de",
         "maintainer": true
     },
-    "franeworks": ["Arduino"],
+    "frameworks": ["Arduino"],
     "platforms": ["atmelavr", "espressif8266", "espressif32"]
 }

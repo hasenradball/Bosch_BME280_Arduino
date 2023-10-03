@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <Bosch_BME280_Arduino.h>
 
-BME::Bosch_BME280 bme{-1, -1, 0x77, 249.67F, true};
+BME::Bosch_BME280 bme{-1, -1, BME280_I2C_ADDR_PRIM, 249.67F, true};
 
 void setup() {
     Serial.begin(115200);

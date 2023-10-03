@@ -1,8 +1,10 @@
 # Bosch BME280 Arduino
+based on Bosch BME280_driver v3.5.1
 
 ## About
 The Bosch BME280 is an environmental sensor which is able to measure temperature, humidity and air pressure.
-This library is based on the Bosch Sensortec BME280 driver API, and is intented to measure the these environmental signals via I²C connection on an Arduino based or ESP based microcontroller.
+
+This library is based on the Bosch Sensortec BME280 driver API v3.5.1, and is intented to measure the these environmental signals via I²C connection on an Arduino based or ESP based microcontroller.
 
 The github repository of Bosch Sensortec is: https://github.com/BoschSensortec/BME280_driver
 
@@ -18,7 +20,7 @@ The Bosch BME280 sensor do have 3 operation modes.
 ## Namespace
 This Bosch BME280 Wraper uses a namespace as `BME` so if you construct the object you have to call:
 ```
-BME::Bosch_BME280 bme{-1, -1, 0x77, 249.67F, false};
+BME::Bosch_BME280 bme{-1, -1, BME280_I2C_ADDR_PRIM, 249.67F, false};
 ```
 
 ## Methods
@@ -55,7 +57,7 @@ getSealevelForAltitude()
 #include <Arduino.h>
 #include <Bosch_BME280_Arduino.h>
 
-BME::Bosch_BME280 bme{-1, -1, 0x77, 249.67F, true};
+BME::Bosch_BME280 bme{-1, -1, BME280_I2C_ADDR_PRIM, 249.67F, true};
 
 void setup() {
     Serial.begin(115200);

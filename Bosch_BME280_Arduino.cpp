@@ -3,7 +3,7 @@
   Microcontroller: ESPxx, Arduino
   Date: 21.02.2022
   Issuer: Frank Häfele
-  Based on: Bosch Sensortec BME280 driver release v3.5.0
+  Based on: Bosch Sensortec BME280 driver release v3.5.1
 */
 #include <Bosch_BME280_Arduino.h>
 
@@ -17,18 +17,18 @@
  * @param forced_mode if true the sensor makes one measurement and goes to sleep (no continous measurement)
  */
 BME::Bosch_BME280::Bosch_BME280(int8_t sda_pin, int8_t scl_pin, uint8_t addr, float altitude, bool forced_mode) :
-	sensor_status {BME280_OK},
   _sda_pin {sda_pin},
 	_scl_pin {scl_pin},
+  _sensor_status {BME280_OK},
 	_addr {addr},
 	_altitude {altitude}  
 {
   // set internal _mode
   if (forced_mode) {
-    _mode = BME280_FORCED_MODE;
+    _mode = BME280_POWERMODE_FORCED;
   }
   else {
-    _mode = BME280_NORMAL_MODE;
+    _mode = BME280_POWERMODE_NORMAL;
   }
 }
 
@@ -42,13 +42,13 @@ BME::Bosch_BME280::Bosch_BME280(int8_t sda_pin, int8_t scl_pin, uint8_t addr, fl
  * @retval < 0 -> Fail.
  */
 int8_t BME::Bosch_BME280::begin() {
-  dev.intf_ptr = &_addr;
+  _dev.intf_ptr = &_addr;
   
   // I2C init START
-  dev.intf = BME280_I2C_INTF;
-  dev.read = &BME::Bosch_BME280::I2CRead;
-  dev.write = &BME::Bosch_BME280::I2CWrite;
-  dev.delay_us = &BME::Bosch_BME280::delay_us;
+  _dev.intf = BME280_I2C_INTF;
+  _dev.read = &BME::Bosch_BME280::I2CRead;
+  _dev.write = &BME::Bosch_BME280::I2CWrite;
+  _dev.delay_us = &BME::Bosch_BME280::delay_us;
 
   // SDA, SCL needed for ESPs
 #if defined (ESP8266)
@@ -61,11 +61,12 @@ int8_t BME::Bosch_BME280::begin() {
 #endif
   // I2C init END
   // Init of sensor
-  sensor_status = bme280_init(&dev);
+  _sensor_status = bme280_init(&_dev);
+  bme280_print_error_codes("bme280_init", _sensor_status);
   // if normal mode set settings for normal mode
   setSensorSettings();
   delay(100);
-  return sensor_status;
+  return _sensor_status;
 }
 
 /**
@@ -78,14 +79,23 @@ int8_t BME::Bosch_BME280::begin() {
  * @retval < 0 -> Fail.
  */
 int8_t BME::Bosch_BME280::measure() {
-  int8_t ret;
-  if (_mode == BME280_FORCED_MODE) {
-    ret = measure_forced_mode();
+  int8_t result;
+  if (_mode == BME280_POWERMODE_FORCED) {
+    result = measure_forced_mode();
   }
   else {
-    ret =  measure_normal_mode();
+    result =  measure_normal_mode();
   }
-  return ret;
+  return result;
+}
+
+/**
+ * @brief set sensor status
+ * 
+ * @param sensor_status 
+ */
+void BME::Bosch_BME280::setSensorStatus(int8_t sensor_status) {
+  _sensor_status = sensor_status;
 }
 
 /**
@@ -98,8 +108,9 @@ int8_t BME::Bosch_BME280::measure() {
  * @retval < 0 -> Fail.
  */
 int8_t BME::Bosch_BME280::measure_normal_mode() {
-	int8_t ret = bme280_get_sensor_data(BME280_ALL, &comp_data, &dev);
-  return ret;
+	int8_t result = bme280_get_sensor_data(BME280_ALL, &_bme280_data, &_dev);
+  bme280_print_error_codes("bme280_get_sensor_data", result);
+  return result;
 }
 
 /**
@@ -112,15 +123,19 @@ int8_t BME::Bosch_BME280::measure_normal_mode() {
  * @retval < 0 -> Fail.
  */
 int8_t BME::Bosch_BME280::measure_forced_mode() {
-  int8_t ret = BME280_OK;
+  int8_t result {BME280_OK};
   // Calculate the minimum delay in ms required between consecutive measurement based upon the sensor enabled
   // and the oversampling configuration.
-  uint32_t req_delay = bme280_cal_meas_delay(&dev.settings);
-  ret = bme280_set_sensor_mode(BME280_FORCED_MODE, &dev);
-  // wait request_delay * 1000 us to complete the measurement
-  dev.delay_us(req_delay * 1000U, dev.intf_ptr);
-	ret = bme280_get_sensor_data(BME280_ALL, &comp_data, &dev);
-  return ret;
+  result = bme280_cal_meas_delay(&_period, &_settings);
+  bme280_print_error_codes("bme280_cal_meas_delay", result);
+  //Serial.printf("\nCalculated measurement delay: %6d µs\n\n", _period);
+  result = bme280_set_sensor_mode(BME280_POWERMODE_FORCED, &_dev);
+  bme280_print_error_codes("bme280_set_sensor_mode", result);
+  // wait request_delay in µs to complete the measurement
+  _dev.delay_us(_period, _dev.intf_ptr);
+	result = bme280_get_sensor_data(BME280_ALL, &_bme280_data, &_dev);
+  bme280_print_error_codes("bme280_get_sensor_data", result);
+  return result;
 }
 
 /**
@@ -133,33 +148,81 @@ int8_t BME::Bosch_BME280::measure_forced_mode() {
  * @retval < 0 -> Fail.
  */
 int8_t BME::Bosch_BME280::setSensorSettings() {
-  int8_t ret = BME280_OK;
-  // Recommended settings of operation: Indoor navigation
-  dev.settings.osr_h = BME280_OVERSAMPLING_1X;
-  dev.settings.osr_p = BME280_OVERSAMPLING_16X;
-  dev.settings.osr_t = BME280_OVERSAMPLING_2X;
-  dev.settings.filter = BME280_FILTER_COEFF_16;
+  int8_t result{BME280_OK};
 
-  if (_mode == BME280_FORCED_MODE) {
+  // first get all sensor settings
+  result = bme280_get_sensor_settings(&_settings, &_dev);
+  bme280_print_error_codes("bme280_get_sensor_settings", result);
+
+  // Recommended settings of operation: Indoor navigation
+  _settings.osr_h = BME280_OVERSAMPLING_1X;
+  _settings.osr_p = BME280_OVERSAMPLING_16X;
+  _settings.osr_t = BME280_OVERSAMPLING_2X;
+  _settings.filter = BME280_FILTER_COEFF_16;
+
+  if (_mode == BME280_POWERMODE_FORCED) {
     // ### --- Forced MODE Setting --- ###
-    uint8_t settings_sel = BME280_OSR_PRESS_SEL | BME280_OSR_TEMP_SEL | BME280_OSR_HUM_SEL | BME280_FILTER_SEL;
-    ret = bme280_set_sensor_settings(settings_sel, &dev);
-    ret = bme280_set_sensor_mode(BME280_FORCED_MODE, &dev);
+    uint8_t settings_sel = BME280_SEL_OSR_PRESS | BME280_SEL_OSR_TEMP | BME280_SEL_OSR_HUM | BME280_SEL_FILTER;
+    result = bme280_set_sensor_settings(settings_sel, &_settings, &_dev);
+    bme280_print_error_codes("bme280_set_sensor_settings", result);
+    result = bme280_set_sensor_mode(BME280_POWERMODE_FORCED, &_dev);
+    bme280_print_error_codes("bme280_set_sensor_mode", result);
   }
   else {
     /* ### --- NORMAL MODE Setting --- ### */
-    dev.settings.standby_time = BME280_STANDBY_TIME_62_5_MS;
+    _settings.standby_time = BME280_STANDBY_TIME_62_5_MS;
 
-    uint8_t settings_sel = BME280_OSR_PRESS_SEL;
-    settings_sel |= BME280_OSR_TEMP_SEL;
-    settings_sel |= BME280_OSR_HUM_SEL;
-    settings_sel |= BME280_STANDBY_SEL;
-    settings_sel |= BME280_FILTER_SEL;
-    ret = bme280_set_sensor_settings(settings_sel, &dev);
-    ret = bme280_set_sensor_mode(BME280_NORMAL_MODE, &dev);
+    uint8_t settings_sel = BME280_SEL_OSR_PRESS;
+    settings_sel |= BME280_SEL_OSR_TEMP;
+    settings_sel |= BME280_SEL_OSR_HUM;
+    settings_sel |= BME280_SEL_STANDBY;
+    settings_sel |= BME280_SEL_FILTER;
+    result = bme280_set_sensor_settings(settings_sel, &_settings, &_dev);
+    bme280_print_error_codes("bme280_set_sensor_settings", result);
+    result = bme280_set_sensor_mode(BME280_POWERMODE_NORMAL, &_dev);
+    bme280_print_error_codes("bme280_set_sensor_mode", result);
   }
-  return ret;
+  return result;
 }
+
+
+/**
+ * @brief print the bme280 specific error codes
+ * 
+ * @param api_name name of api
+ * @param result code or result
+ */
+ void BME::Bosch_BME280::bme280_print_error_codes(const char *api_name, int8_t result) {
+  if (result != BME280_OK) {
+    Serial.printf("%s\t", api_name);
+    switch (result)
+    {
+      case BME280_E_NULL_PTR:
+          Serial.printf("Error [%d] : Null pointer error.\n", result);
+          Serial.printf("\t\t=> It occurs when the user tries to assign value (not address) to a pointer, which has been initialized to NULL.\r\n\n");
+          break;
+
+      case BME280_E_COMM_FAIL:
+          Serial.printf("Error [%d] : Communication failure error.\n", result);
+          Serial.printf("\t\t=> It occurs due to read/write operation failure and also due to power failure during communication\r\n\n");
+          break;
+
+      case BME280_E_DEV_NOT_FOUND:
+          Serial.printf("Error [%d] : Device not found error.\n", result);
+          Serial.printf("\t\t=> It occurs when the device chip id is incorrectly read\r\n\n");
+          break;
+
+      case BME280_E_INVALID_LEN:
+          Serial.printf("Error [%d] : Invalid length error.\n", result);
+          Serial.printf("\t\t=> It occurs when write is done with invalid length\r\n\n");
+          break;
+
+      default:
+          Serial.printf("Error [%d] : Unknown error code\r\n\n", result);
+          break;
+    }
+  }
+ }
 
 /**
  * @brief User defined function for I2C Read
@@ -175,10 +238,10 @@ int8_t BME::Bosch_BME280::setSensorSettings() {
  * @retval > 0 -> Warning.
  * @retval < 0 -> Fail.
  */
-int8_t BME::Bosch_BME280::I2CRead(uint8_t reg_addr, uint8_t *reg_data, uint32_t cnt, void *intf_ptr) {
+BME280_INTF_RET_TYPE BME::Bosch_BME280::I2CRead(uint8_t reg_addr, uint8_t *reg_data, uint32_t cnt, void *intf_ptr) {
   uint8_t dev_addr = *((uint8_t *)intf_ptr);
   //Serial.println("I2C_bus_read");
-  int8_t ret = BME280_OK;
+  int8_t result {BME280_OK};
 
   //Serial.println(dev_addr, HEX);
   Wire.beginTransmission(dev_addr);
@@ -191,7 +254,7 @@ int8_t BME::Bosch_BME280::I2CRead(uint8_t reg_addr, uint8_t *reg_data, uint32_t 
   
   uint8_t available = Wire.available();
   if(available != cnt) {
-    ret = BME280_E_COMM_FAIL;
+    result = BME280_E_COMM_FAIL;
   }
   
   for(uint8_t i = 0; i < available; i++) {
@@ -201,7 +264,7 @@ int8_t BME::Bosch_BME280::I2CRead(uint8_t reg_addr, uint8_t *reg_data, uint32_t 
     else
       Wire.read();
   }
-  return ret;
+  return result;
 }
 
 /**
@@ -218,14 +281,14 @@ int8_t BME::Bosch_BME280::I2CRead(uint8_t reg_addr, uint8_t *reg_data, uint32_t 
  * @retval > 0 -> Warning.
  * @retval < 0 -> Fail.
  */
-int8_t BME::Bosch_BME280::I2CWrite(uint8_t reg_addr, const uint8_t *reg_data, uint32_t cnt, void *intf_ptr) {  
+BME280_INTF_RET_TYPE BME::Bosch_BME280::I2CWrite(uint8_t reg_addr, const uint8_t *reg_data, uint32_t cnt, void *intf_ptr) {  
   uint8_t dev_addr = *((uint8_t *)intf_ptr);
-  int8_t ret = BME280_OK;
+  int8_t result {BME280_OK};
   Wire.beginTransmission(dev_addr);
   Wire.write(reg_addr);
   Wire.write(reg_data, cnt);
   Wire.endTransmission();
-  return ret;
+  return result;
 }
 
 /**
