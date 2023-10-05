@@ -154,11 +154,11 @@ int8_t BME::Bosch_BME280::setSensorSettings() {
   result = bme280_get_sensor_settings(&_settings, &_dev);
   bme280_print_error_codes("bme280_get_sensor_settings", result);
 
-  // Recommended settings of operation: Indoor navigation
+  // Recommended settings of operation: => weather monitoring
+  _settings.osr_p = BME280_OVERSAMPLING_1X;
+  _settings.osr_t = BME280_OVERSAMPLING_1X;
   _settings.osr_h = BME280_OVERSAMPLING_1X;
-  _settings.osr_p = BME280_OVERSAMPLING_16X;
-  _settings.osr_t = BME280_OVERSAMPLING_2X;
-  _settings.filter = BME280_FILTER_COEFF_16;
+  _settings.filter = BME280_FILTER_COEFF_OFF;
 
   if (_mode == BME280_POWERMODE_FORCED) {
     // ### --- Forced MODE Setting --- ###
@@ -170,7 +170,7 @@ int8_t BME::Bosch_BME280::setSensorSettings() {
   }
   else {
     /* ### --- NORMAL MODE Setting --- ### */
-    _settings.standby_time = BME280_STANDBY_TIME_62_5_MS;
+    _settings.standby_time = BME280_STANDBY_TIME_1000_MS;
 
     uint8_t settings_sel = BME280_SEL_OSR_PRESS;
     settings_sel |= BME280_SEL_OSR_TEMP;
