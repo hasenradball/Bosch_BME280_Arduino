@@ -1,6 +1,6 @@
 {
     "name": "Bosch_BME280_Arduino",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "repository":
     {
         "type": "git",
@@ -16,5 +16,5 @@
         "maintainer": true
     },
     "frameworks": ["Arduino"],
-    "platforms": ["atmelavr", "espressif8266", "espressif32"]
+    "platforms": ["atmelavr", "espressif8266", "espressif32", "atmelsam"]
 }

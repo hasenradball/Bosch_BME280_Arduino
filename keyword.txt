@@ -1,0 +1,20 @@
+# Syntax Coloring Map For Bosch_BME280_Arduino Library
+
+# Datatypes (KEYWORD1)
+BME                     KEYWORD1
+Bosch_BME280            KEYWORD1
+
+# Methods and Functions (KEYWORD2)
+begin                   KEYWORD2
+measure                 KEYWORD2
+getTemperature          KEYWORD2
+getHumidity             KEYWORD2
+getPressure             KEYWORD2
+getSealevelForAltitude  KEYWORD2
+getSensorStatus         KEYWORD2
+setSensorStatus         KEYWORD2
+
+
+# Constants (LITERAL1)
+BME280_I2C_ADDR_PRIM    LITERAL1
+BME280_I2C_ADDR_SEC     LITERAL1
