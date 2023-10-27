@@ -194,31 +194,37 @@ int8_t BME::Bosch_BME280::setSensorSettings() {
  */
  void BME::Bosch_BME280::bme280_print_error_codes(const char *api_name, int8_t result) {
   if (result != BME280_OK) {
-    Serial.printf("%s\t", api_name);
+    Serial.print(api_name);
+    Serial.print("\tError [");
     switch (result)
     {
       case BME280_E_NULL_PTR:
-          Serial.printf("Error [%d] : Null pointer error.\n", result);
-          Serial.printf("\t\t=> It occurs when the user tries to assign value (not address) to a pointer, which has been initialized to NULL.\r\n\n");
+          Serial.print(result);
+          Serial.print("] : Null pointer error.\n");
+          Serial.print("\t\t=> It occurs when the user tries to assign value (not address) to a pointer, which has been initialized to NULL.\r\n\n");
           break;
 
       case BME280_E_COMM_FAIL:
-          Serial.printf("Error [%d] : Communication failure error.\n", result);
-          Serial.printf("\t\t=> It occurs due to read/write operation failure and also due to power failure during communication\r\n\n");
+          Serial.print(result);
+          Serial.print("] : Communication failure error.\n");
+          Serial.print("\t\t=> It occurs due to read/write operation failure and also due to power failure during communication\r\n\n");
           break;
 
       case BME280_E_DEV_NOT_FOUND:
-          Serial.printf("Error [%d] : Device not found error.\n", result);
-          Serial.printf("\t\t=> It occurs when the device chip id is incorrectly read\r\n\n");
+          Serial.print(result);
+          Serial.print("] : Device not found error.\n");
+          Serial.print("\t\t=> It occurs when the device chip id is incorrectly read\r\n\n");
           break;
 
       case BME280_E_INVALID_LEN:
-          Serial.printf("Error [%d] : Invalid length error.\n", result);
-          Serial.printf("\t\t=> It occurs when write is done with invalid length\r\n\n");
+          Serial.print(result);
+          Serial.print("] : Invalid length error.\n");
+          Serial.print("\t\t=> It occurs when write is done with invalid length\r\n\n");
           break;
 
       default:
-          Serial.printf("Error [%d] : Unknown error code\r\n\n", result);
+          Serial.print(result);
+          Serial.print("] : Unknown error code\r\n\n");
           break;
     }
   }

@@ -2,7 +2,6 @@
 #define _BOSCH_BME280_ARDUINO_H_
 #include <Arduino.h>
 #include <Wire.h>
-#include <DBG_Print.h>
 #include "BME280_API/bme280.h"
 
 namespace BME {
