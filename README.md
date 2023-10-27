@@ -71,7 +71,7 @@ setSensorStatus(status);
 
 ### Example
 See also in:
-[Arduino_Nano_example.ino](https://github.com/hasenradball/Bosch_BME280_Arduino/blob/master/examples/Arduino_Nano_example.ino)
+[Arduino_example.ino](https://github.com/hasenradball/Bosch_BME280_Arduino/blob/master/examples/Arduino_example/Arduino_example.ino)
 
 ```
 #include <Arduino.h>
