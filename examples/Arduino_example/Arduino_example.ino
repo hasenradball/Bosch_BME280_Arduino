@@ -10,7 +10,7 @@ void setup() {
       yield();
     }
 
-   Wire.begin()
+   Wire.begin();
    // init Bosch BME 280 Sensor
    if (bme.begin() != 0) {
       Serial.println("\n\t>>> ERROR: Init of Bosch BME280 Sensor failed! <<<");
