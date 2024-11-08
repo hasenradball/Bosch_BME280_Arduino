@@ -1,5 +1,5 @@
 #include <Arduino.h>
-
+#include <Wire.h>
 #include <ESP8266WiFi.h>
 #include <Bosch_BME280_Arduino.h>
 
@@ -11,7 +11,7 @@
 BME::Bosch_BME280 sensor_bme280{0, 2, BME280_I2C_ADDR_PRIM, 249.76F, true};
 
 // ============================================
-// ### --- ENDE: Klassen --- ###
+// ### --- END: Klassen --- ###
 // ============================================
 
 
@@ -19,21 +19,31 @@ BME::Bosch_BME280 sensor_bme280{0, 2, BME280_I2C_ADDR_PRIM, 249.76F, true};
 // ### --- START: Setup --- ###
 // ============================================
 void setup() {
-  WiFi.mode(WIFI_OFF);
-  // Serielle Schnittstelle initialisieren
-  Serial.begin(115200);
-  while (!Serial) {
+   WiFi.mode(WIFI_OFF);
+   // Serielle Schnittstelle initialisieren
+   Serial.begin(115200);
+   while (!Serial) {
       yield();
-    }
-  Serial.println(F("\n ### >>> ESP01 Test - read Bosch BME280 Sensor Data <<< ###"));
+      }
+   Serial.println(F("\n ### >>> ESP01 Test - read Bosch BME280 Sensor Data <<< ###"));
 
-  Serial.println(F("\t>>> init Sensor"));
-  
-  sensor_bme280.begin();
+   // SDA, SCL needed for ESPs
+#if defined (ESP8266)
+  Wire.begin(SDA, SCL);
+#elif defined (ESP32)
+  Wire.setPins(SDA, SCL);
+  Wire.begin();
+#else
+  Wire.begin();
+#endif
+
+   Serial.println(F("\t>>> init Sensor"));
+   
+   sensor_bme280.begin();
 }
 
 // ============================================
-// ### --- ENDE: Setup --- ###
+// ### --- END: Setup --- ###
 // ============================================
 
 // ============================================
@@ -55,5 +65,5 @@ void loop() {
   }
 }
 // ============================================
-// ### --- ENDE: Main Loop --- ###
+// ### --- END: Main Loop --- ###
 // ============================================

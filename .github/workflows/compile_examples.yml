@@ -1,16 +1,47 @@
-name: Compile examples folder
+name: Compile examples foolder
 
-on:
-  - push
-  - pull_request
+on: [push, pull_request]
 
 jobs:
-  compile-examples:
+  build-arduino:
     runs-on: ubuntu-latest
-
     steps:
-        - uses: actions/checkout@v3
-        - uses: arduino/compile-sketches@v1
-          with:
-            libraries: |
-              - source-path: ./
+      - uses: actions/checkout@v4
+      - uses: arduino/compile-sketches@v1
+        with:
+          libraries: |
+            - source-path: ./
+          sketch-paths:
+            ./examples/Arduino_example/Arduino_example.ino
+
+  build-esp8266:
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, '[esp8266]')
+
+    strategy:
+      fail-fast: false
+      
+      matrix:
+        board:
+          - fqbn: esp8266:esp8266:nodemcu
+          - fqbn: esp8266:esp8266:d1_mini
+        core:
+          - version: 3.1.2
+          - version: 3.0.2
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Compile ESP8266 examples
+        uses: arduino/compile-sketches@v1
+        with:
+          platforms: |
+            - name: esp8266:esp8266
+              source-url: https://arduino.esp8266.com/stable/package_esp8266com_index.json
+              version: ${{ matrix.core.version }}
+          fqbn: ${{ matrix.board.fqbn }}
+          libraries: |
+            - source-path: ./
+          sketch-paths:
+            ./examples/ESP8266_example/ESP8266_example.ino

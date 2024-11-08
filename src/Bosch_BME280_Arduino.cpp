@@ -6,22 +6,19 @@
   Based on: Bosch Sensortec BME280 driver release v3.5.1
 */
 #include <Bosch_BME280_Arduino.h>
+#include <Wire.h>
 
 /**
  * @brief Construct a new bme::Bosch_BME280 Object
  * 
- * @param sda_pin Pin for SDA Signal (-1 for Arduino usage)
- * @param scl_pin Pin for SCL Signal (-1 for Arduino usage)
  * @param addr I²C-Address for sensor (0x76 default)
  * @param altitude Altitude for the calculation of the Air Pressure at NN
- * @param forced_mode if true the sensor makes one measurement and goes to sleep (no continous measurement)
+ * @param forced_mode if true the sensor makes one measurement and goes to sleep (no continuous measurement)
  */
-BME::Bosch_BME280::Bosch_BME280(int8_t sda_pin, int8_t scl_pin, uint8_t addr, float altitude, bool forced_mode) :
-  _sda_pin {sda_pin},
-	_scl_pin {scl_pin},
-  _sensor_status {BME280_OK},
-	_addr {addr},
-	_altitude {altitude}  
+BME::Bosch_BME280::Bosch_BME280(uint8_t addr, float altitude, bool forced_mode) :
+   _altitude {altitude},
+   _sensor_status {BME280_OK},
+   _addr {addr}
 {
   // set internal _mode
   if (forced_mode) {
@@ -50,16 +47,6 @@ int8_t BME::Bosch_BME280::begin() {
   _dev.write = &BME::Bosch_BME280::I2CWrite;
   _dev.delay_us = &BME::Bosch_BME280::delay_us;
 
-  // SDA, SCL needed for ESPs
-#if defined (ESP8266)
-  Wire.begin(_sda_pin, _scl_pin);
-#elif defined (ESP32)
-  Wire.setPins(_sda_pin, _scl_pin);
-  Wire.begin();
-#else
-  Wire.begin();
-#endif
-  // I2C init END
   // Init of sensor
   _sensor_status = bme280_init(&_dev);
   bme280_print_error_codes("bme280_init", _sensor_status);
@@ -114,7 +101,7 @@ int8_t BME::Bosch_BME280::measure_normal_mode() {
 }
 
 /**
- * @brief measure in forced mode. In forced mode the sesnor takes one measurement and then goes to sleep
+ * @brief measure in forced mode. In forced mode the sensor takes one measurement and then goes to sleep
  * 
  * @return sensor status
  *
@@ -139,7 +126,7 @@ int8_t BME::Bosch_BME280::measure_forced_mode() {
 }
 
 /**
- * @brief set Sensor settings for forced or normal mode of BME280
+ * @brief set sensor settings for forced or normal mode of BME280
  * 
  * @return sensor status
  * 
@@ -238,7 +225,7 @@ int8_t BME::Bosch_BME280::setSensorSettings() {
  * @param cnt count of Bytes
  * @param intf_ptr Pointer of user defined function
  * 
- * @return sensor communcation status
+ * @return sensor communication status
  *
  * @retval  0 -> Success.
  * @retval > 0 -> Warning.

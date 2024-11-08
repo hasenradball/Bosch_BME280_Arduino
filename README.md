@@ -1,5 +1,9 @@
+[![Compile examples folder](https://github.com/hasenradball/Bosch_BME280_Arduino/actions/workflows/compile_examples.yml/badge.svg?branch=master)](https://github.com/hasenradball/Bosch_BME280_Arduino/actions/workflows/compile_examples.yml)
+[![Spell Check](https://github.com/hasenradball/Bosch_BME280_Arduino/actions/workflows/spell_checker.yml/badge.svg?branch=master)](https://github.com/hasenradball/Bosch_BME280_Arduino/actions/workflows/spell_checker.yml)
 # Bosch BME280 Arduino
 based on Bosch BME280_driver v3.5.1
+
+![BME280_Module](./docs/Bosch_BME280_module.jpeg)
 
 List of content<br>
 * [About](#about)<br>
@@ -14,7 +18,7 @@ List of content<br>
 ## About
 The Bosch BME280 is an environmental sensor which is able to measure temperature, humidity and air pressure.
 
-This library is based on the Bosch Sensortec BME280 driver API v3.5.1, and is intented to measure these environmental signals via I²C connection on an Arduino based or ESP based microcontroller.
+This library is based on the Bosch Sensortec BME280 driver API v3.5.1, and is intended to measure these environmental signals via I²C connection on an Arduino based or ESP based microcontroller.
 
 The github repository of Bosch Sensortec is: [Github BOSCH Sensor Driver](https://github.com/BoschSensortec/BME280_driver)
 
@@ -23,14 +27,14 @@ The website of the BME280 on Bosch Sensortec is: [Bosch Sensortec BME280](https:
 ## Functionality
 The original Bosch driver is included in this package and it has not been modified in any way.
 The Bosch BME280 sensor do have 3 operation modes.
-1. **Sleep mode** - the sensor is in sleep mode after power on reset. No measurements are performed and power consumtion is on minimum.
+1. **Sleep mode** - the sensor is in sleep mode after power on reset. No measurements are performed and power consumption is on minimum.
 2. **Forced mode** - one single measurement is performed and returns then to sleep mode. The measurements can be obtained from the data registers.
-3. **Normal mode** - cyclic measurements are performed. The measurements can be obtained fron the data registers.
+3. **Normal mode** - cyclic measurements are performed. The measurements can be obtained from the data registers.
 
 ## Namespace
-This Bosch BME280 Wraper uses a namespace as `BME` so if you construct the object you have to call:
+This Bosch BME280 wrapper uses a namespace as `BME` so if you construct the object you have to call:
 ```
-BME::Bosch_BME280 bme{-1, -1, BME280_I2C_ADDR_PRIM, 249.67F, false};
+BME::Bosch_BME280 bme{BME280_I2C_ADDR_PRIM, 249.67F, false};
 ```
 
 ## Methods
@@ -39,12 +43,11 @@ The are the following public methods:
 
 #### Constructor
 You call the constructor with various parameters:
-* the SDA and SCL pin (in case of ESP variants), `-1` in case for Arduino variants
 * address of the BME280 (0x76 or 0x77)
 * altitude for the calculation of the sea level pressure
 * a Bool - `true` if use forced mode or `false` if use normal mode
 ```
-Bosch_BME280(sda_pin, scl_pin, addr, altitude, forced_mode)
+Bosch_BME280(addr, altitude, forced_mode)
 ```
 #### Init I²C and Sensor Init
 ```
@@ -77,13 +80,23 @@ See also in:
 #include <Arduino.h>
 #include <Bosch_BME280_Arduino.h>
 
-BME::Bosch_BME280 bme{-1, -1, BME280_I2C_ADDR_PRIM, 249.67F, true};
+BME::Bosch_BME280 bme{BME280_I2C_ADDR_PRIM, 249.67F, true};
 
 void setup() {
     Serial.begin(115200);
     while (!Serial) {
       yield();
     }
+
+   // SDA, SCL needed for ESPs
+#if defined (ESP8266)
+  Wire.begin(SDA, SCL);
+#elif defined (ESP32)
+  Wire.setPins(SDA, SCL);
+  Wire.begin();
+#else
+  Wire.begin();
+#endif
 
     // init Bosch BME 280 Sensor
     if (bme.begin() != 0) {

@@ -1,7 +1,8 @@
 #include <Arduino.h>
+#include <Wire.h>
 #include <Bosch_BME280_Arduino.h>
 
-BME::Bosch_BME280 bme{-1, -1, BME280_I2C_ADDR_PRIM, 249.67F, true};
+BME::Bosch_BME280 bme{BME280_I2C_ADDR_PRIM, 249.67F, true};
 
 void setup() {
     Serial.begin(115200);
@@ -9,10 +10,11 @@ void setup() {
       yield();
     }
 
-    // init Bosch BME 280 Sensor
-    if (bme.begin() != 0) {
+   Wire.begin()
+   // init Bosch BME 280 Sensor
+   if (bme.begin() != 0) {
       Serial.println("\n\t>>> ERROR: Init of Bosch BME280 Sensor failed! <<<");
-    }
+   }
 }
 
 void loop() {
