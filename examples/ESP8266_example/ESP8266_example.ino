@@ -8,7 +8,7 @@
 // ### --- START: Klassen Instanzen --- ###
 // ============================================
 
-BME::Bosch_BME280 sensor_bme280{0, 2, BME280_I2C_ADDR_PRIM, 249.76F, true};
+BME::Bosch_BME280 sensor_bme280{BME280_I2C_ADDR_PRIM, 249.76F, true};
 
 // ============================================
 // ### --- END: Klassen --- ###
