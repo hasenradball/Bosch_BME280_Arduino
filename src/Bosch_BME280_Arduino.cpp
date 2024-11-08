@@ -268,7 +268,7 @@ BME280_INTF_RET_TYPE BME::Bosch_BME280::I2CRead(uint8_t reg_addr, uint8_t *reg_d
  * @param cnt count of Bytes
  * @param intf_ptr Pointer of user defined function
  *
- * @return sensor communcation status
+ * @return sensor communication status
  *
  * @retval   0 -> Success.
  * @retval > 0 -> Warning.
