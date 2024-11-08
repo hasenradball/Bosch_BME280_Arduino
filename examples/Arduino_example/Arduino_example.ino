@@ -2,6 +2,7 @@
 #include <Wire.h>
 #include <Bosch_BME280_Arduino.h>
 
+// global instance
 BME::Bosch_BME280 bme{BME280_I2C_ADDR_PRIM, 249.67F, true};
 
 void setup() {
