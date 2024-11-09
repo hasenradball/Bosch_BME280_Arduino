@@ -1,13 +1,12 @@
 #ifndef _BOSCH_BME280_ARDUINO_H_
 #define _BOSCH_BME280_ARDUINO_H_
 #include <Arduino.h>
-#include <Wire.h>
 #include "BME280_API/bme280.h"
 
 namespace BME {
   class Bosch_BME280 {
     public:
-      explicit Bosch_BME280(int8_t sda_pin = -1, int8_t scl_pin = -1, uint8_t addr = BME280_I2C_ADDR_PRIM, float altitude = 249.67F, bool forced_mode = true);
+      explicit Bosch_BME280(uint8_t addr = BME280_I2C_ADDR_PRIM, float altitude = 249.67F, bool forced_mode = true);
       
       int8_t begin();
       int8_t measure();
@@ -20,17 +19,16 @@ namespace BME {
       void setSensorStatus(int8_t sensor_status);
       
     private:
-      int8_t _sda_pin, _scl_pin;
-      int8_t _sensor_status;
-      uint8_t _addr, _mode;
-      float _altitude;
-      
-      // variable for delay time in µs
-      uint32_t _period;
       struct bme280_dev _dev;
       struct bme280_data _bme280_data;
       struct bme280_settings _settings;
+      // variable for delay time in µs
+      uint32_t _period;
       
+      float _altitude;
+      int8_t _sensor_status;
+      uint8_t _addr, _mode;
+
       int8_t setSensorSettings();
       int8_t measure_normal_mode();
       int8_t measure_forced_mode();
