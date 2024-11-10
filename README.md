@@ -74,7 +74,9 @@ setSensorStatus(status);
 
 ### Example
 See also in:
-[Arduino_example.ino](https://github.com/hasenradball/Bosch_BME280_Arduino/blob/master/examples/Arduino_example/Arduino_example.ino)
+* [Arduino_example.ino](https://github.com/hasenradball/Bosch_BME280_Arduino/blob/master/examples/Arduino_example/Arduino_example.ino)
+* [ESP32_example.ino](https://github.com/hasenradball/Bosch_BME280_Arduino/blob/master/examples/ESP32_example/ESP32_example.ino)
+* [ESP8266_example.ino](https://github.com/hasenradball/Bosch_BME280_Arduino/blob/master/examples/ESP8266_example/ESP8266_example.ino)
 
 ```
 #include <Arduino.h>
