@@ -23,7 +23,9 @@ jobs:
       
       matrix:
         board:
+          - fqbn: esp8266:esp8266:esp8285
           - fqbn: esp8266:esp8266:nodemcu
+          - fqbn: esp8266:esp8266:nodemcuv2
           - fqbn: esp8266:esp8266:d1_mini
         core:
           - version: 3.1.2
