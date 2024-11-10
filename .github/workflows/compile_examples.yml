@@ -54,23 +54,25 @@ jobs:
       fail-fast: false
 
       matrix:
-        idf_ver: ["release-v5.0", "release-v5.1", "release-v5.2", "release-v5.3", "latest"]
-        idf_target: ["esp32", "esp32s2", "esp32s3", "esp32c2", "esp32c3"]
-
-    container: espressif/idf:${{ matrix.idf_ver }}
-
+        board:
+          - fqbn: esp32:esp32:nodemcu
+        core:
+          - version: 3.0.6
+          - version: 3.0.7
+    
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Compile ESP32 examples
+        uses: arduino/compile-sketches@v1
         with:
-          submodules: 'true'
-      - name: esp-idf build
-        env:
-          IDF_TARGET: ${{ matrix.idf_target }}
-        shell: bash
-        working-directory: examples/ESP8266_example
-        run: |
-          . ${IDF_PATH}/export.sh
-          export PEDANTIC_FLAGS="-DIDF_CI_BUILD -Werror -Werror=deprecated-declarations -Werror=unused-variable -Werror=unused-but-set-variable -Werror=unused-function"
-          export EXTRA_CFLAGS="${PEDANTIC_FLAGS} -Wstrict-prototypes"
-          export EXTRA_CXXFLAGS="${PEDANTIC_FLAGS}"
-          idf.py build
+          platforms: |
+            - name: esp32:esp32
+              source-url: https://espressif.github.io/arduino-esp32/package_esp32_index.json
+              version: ${{ matrix.core.version }}
+          fqbn: ${{ matrix.board.fqbn }}
+          libraries: |
+            - source-path: ./
+          sketch-paths:
+            ./examples/ESP8266_example/ESP8266_example.ino
