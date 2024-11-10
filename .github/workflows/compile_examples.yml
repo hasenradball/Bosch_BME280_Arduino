@@ -75,4 +75,4 @@ jobs:
           libraries: |
             - source-path: ./
           sketch-paths:
-            ./examples/ESP8266_example/ESP8266_example.ino
+            ./examples/ESP32_example/ESP32_example.ino

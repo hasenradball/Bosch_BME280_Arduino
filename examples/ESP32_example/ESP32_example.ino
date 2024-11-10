@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <Wire.h>
-#include <ESP8266WiFi.h>
+#include <WiFi.h>
 #include <Bosch_BME280_Arduino.h>
 
 
@@ -25,17 +25,11 @@ void setup() {
    while (!Serial) {
       yield();
       }
-   Serial.println(F("\n ### >>> ESP8266 Test - read Bosch BME280 Sensor Data <<< ###"));
+   Serial.println(F("\n ### >>> ESP32 test - read Bosch BME280 Sensor Data <<< ###"));
 
    // SDA, SCL needed for ESPs
-#if defined (ESP8266)
-  Wire.begin(SDA, SCL);
-#elif defined (ESP32)
   Wire.setPins(SDA, SCL);
   Wire.begin();
-#else
-  Wire.begin();
-#endif
 
    Serial.println(F("\t>>> init Sensor"));
    
