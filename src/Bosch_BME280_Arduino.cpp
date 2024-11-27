@@ -34,9 +34,9 @@ BME::Bosch_BME280::Bosch_BME280(uint8_t addr, float altitude, bool forced_mode) 
  * 
  * @return sensor status
  *
- * @retval   0 -> Success.
- * @retval > 0 -> Warning.
- * @retval < 0 -> Fail.
+ * @retval   0 : Success
+ * @retval > 0 : Warning
+ * @retval < 0 : Fail
  */
 int8_t BME::Bosch_BME280::begin() {
   _dev.intf_ptr = &_addr;
@@ -61,9 +61,9 @@ int8_t BME::Bosch_BME280::begin() {
  * 
  * @return sensor status
  *
- * @retval   0 -> Success.
- * @retval > 0 -> Warning.
- * @retval < 0 -> Fail.
+ * @retval   0 : Success
+ * @retval > 0 : Warning
+ * @retval < 0 : Fail
  */
 int8_t BME::Bosch_BME280::measure() {
   int8_t result;
@@ -90,9 +90,9 @@ void BME::Bosch_BME280::setSensorStatus(int8_t sensor_status) {
  * 
  * @return sensor status
  *
- * @retval   0 -> Success.
- * @retval > 0 -> Warning.
- * @retval < 0 -> Fail.
+ * @retval   0 : Success
+ * @retval > 0 : Warning
+ * @retval < 0 : Fail
  */
 int8_t BME::Bosch_BME280::measure_normal_mode() {
 	int8_t result = bme280_get_sensor_data(BME280_ALL, &_bme280_data, &_dev);
@@ -105,9 +105,9 @@ int8_t BME::Bosch_BME280::measure_normal_mode() {
  * 
  * @return sensor status
  *
- * @retval   0 -> Success.
- * @retval > 0 -> Warning.
- * @retval < 0 -> Fail.
+ * @retval   0 : Success
+ * @retval > 0 : Warning
+ * @retval < 0 : Fail
  */
 int8_t BME::Bosch_BME280::measure_forced_mode() {
   int8_t result {BME280_OK};
@@ -130,9 +130,9 @@ int8_t BME::Bosch_BME280::measure_forced_mode() {
  * 
  * @return sensor status
  * 
- * @retval   0 -> Success.
- * @retval > 0 -> Warning.
- * @retval < 0 -> Fail.
+ * @retval   0 : Success
+ * @retval > 0 : Warning
+ * @retval < 0 : Fail
  */
 int8_t BME::Bosch_BME280::setSensorSettings() {
   int8_t result{BME280_OK};
@@ -227,9 +227,9 @@ int8_t BME::Bosch_BME280::setSensorSettings() {
  * 
  * @return sensor communication status
  *
- * @retval  0 -> Success.
- * @retval > 0 -> Warning.
- * @retval < 0 -> Fail.
+ * @retval   0 : Success
+ * @retval > 0 : Warning
+ * @retval < 0 : Fail
  */
 BME280_INTF_RET_TYPE BME::Bosch_BME280::I2CRead(uint8_t reg_addr, uint8_t *reg_data, uint32_t cnt, void *intf_ptr) {
   uint8_t dev_addr = *((uint8_t *)intf_ptr);
@@ -270,9 +270,9 @@ BME280_INTF_RET_TYPE BME::Bosch_BME280::I2CRead(uint8_t reg_addr, uint8_t *reg_d
  *
  * @return sensor communication status
  *
- * @retval   0 -> Success.
- * @retval > 0 -> Warning.
- * @retval < 0 -> Fail.
+ * @retval   0 : Success.
+ * @retval > 0 : Warning.
+ * @retval < 0 : Fail.
  */
 BME280_INTF_RET_TYPE BME::Bosch_BME280::I2CWrite(uint8_t reg_addr, const uint8_t *reg_data, uint32_t cnt, void *intf_ptr) {  
   uint8_t dev_addr = *((uint8_t *)intf_ptr);
