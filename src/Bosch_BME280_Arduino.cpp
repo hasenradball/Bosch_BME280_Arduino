@@ -1,20 +1,13 @@
-/*
-  Projekt: Bosch BME280 Arduino Wrapper Class
-  Microcontroller: ESPxx, Arduino
-  Date: 21.02.2022
-  Issuer: Frank Häfele
-  Based on: Bosch Sensortec BME280 driver release v3.5.1
-*/
+/**
+ * @file    Bosch_BME280_Arduino.h
+ * @author  Frank Häfele
+ * @date    21.02.2022
+ * @version 1.2.0
+ * @brief   Bosch BME280 Arduino Wrapper Class based on BME280 Bosch driver v3.5.1
+ */
 #include <Bosch_BME280_Arduino.h>
 #include <Wire.h>
 
-/**
- * @brief Construct a new bme::Bosch_BME280 Object
- * 
- * @param addr I²C-Address for sensor (0x76 default)
- * @param altitude Altitude for the calculation of the Air Pressure at NN
- * @param forced_mode if true the sensor makes one measurement and goes to sleep (no continuous measurement)
- */
 BME::Bosch_BME280::Bosch_BME280(uint8_t addr, float altitude, bool forced_mode) :
    _altitude {altitude},
    _sensor_status {BME280_OK},
@@ -29,15 +22,6 @@ BME::Bosch_BME280::Bosch_BME280(uint8_t addr, float altitude, bool forced_mode) 
   }
 }
 
-/**
- * @brief setup the I2C Wiring and init the Sensor
- * 
- * @return sensor status
- *
- * @retval   0 : Success
- * @retval > 0 : Warning
- * @retval < 0 : Fail
- */
 int8_t BME::Bosch_BME280::begin() {
   _dev.intf_ptr = &_addr;
   
@@ -56,15 +40,6 @@ int8_t BME::Bosch_BME280::begin() {
   return _sensor_status;
 }
 
-/**
- * @brief measure function
- * 
- * @return sensor status
- *
- * @retval   0 : Success
- * @retval > 0 : Warning
- * @retval < 0 : Fail
- */
 int8_t BME::Bosch_BME280::measure() {
   int8_t result;
   if (_mode == BME280_POWERMODE_FORCED) {
@@ -76,39 +51,16 @@ int8_t BME::Bosch_BME280::measure() {
   return result;
 }
 
-/**
- * @brief set sensor status
- * 
- * @param sensor_status 
- */
 void BME::Bosch_BME280::setSensorStatus(int8_t sensor_status) {
   _sensor_status = sensor_status;
 }
 
-/**
- * @brief measurement in normal mode
- * 
- * @return sensor status
- *
- * @retval   0 : Success
- * @retval > 0 : Warning
- * @retval < 0 : Fail
- */
 int8_t BME::Bosch_BME280::measure_normal_mode() {
 	int8_t result = bme280_get_sensor_data(BME280_ALL, &_bme280_data, &_dev);
   bme280_print_error_codes("bme280_get_sensor_data", result);
   return result;
 }
 
-/**
- * @brief measure in forced mode. In forced mode the sensor takes one measurement and then goes to sleep
- * 
- * @return sensor status
- *
- * @retval   0 : Success
- * @retval > 0 : Warning
- * @retval < 0 : Fail
- */
 int8_t BME::Bosch_BME280::measure_forced_mode() {
   int8_t result {BME280_OK};
   // Calculate the minimum delay in ms required between consecutive measurement based upon the sensor enabled
@@ -125,15 +77,6 @@ int8_t BME::Bosch_BME280::measure_forced_mode() {
   return result;
 }
 
-/**
- * @brief set sensor settings for forced or normal mode of BME280
- * 
- * @return sensor status
- * 
- * @retval   0 : Success
- * @retval > 0 : Warning
- * @retval < 0 : Fail
- */
 int8_t BME::Bosch_BME280::setSensorSettings() {
   int8_t result{BME280_OK};
 
@@ -173,12 +116,6 @@ int8_t BME::Bosch_BME280::setSensorSettings() {
 }
 
 
-/**
- * @brief print the bme280 specific error codes
- * 
- * @param api_name name of api
- * @param result code or result
- */
  void BME::Bosch_BME280::bme280_print_error_codes(const char *api_name, int8_t result) {
   if (result != BME280_OK) {
     Serial.print(api_name);
@@ -217,20 +154,6 @@ int8_t BME::Bosch_BME280::setSensorSettings() {
   }
  }
 
-/**
- * @brief User defined function for I2C Read
- * 
- * @param reg_addr Register Address
- * @param reg_data Register Data
- * @param cnt count of Bytes
- * @param intf_ptr Pointer of user defined function
- * 
- * @return sensor communication status
- *
- * @retval   0 : Success
- * @retval > 0 : Warning
- * @retval < 0 : Fail
- */
 BME280_INTF_RET_TYPE BME::Bosch_BME280::I2CRead(uint8_t reg_addr, uint8_t *reg_data, uint32_t cnt, void *intf_ptr) {
   uint8_t dev_addr = *((uint8_t *)intf_ptr);
   //Serial.println("I2C_bus_read");
@@ -260,20 +183,6 @@ BME280_INTF_RET_TYPE BME::Bosch_BME280::I2CRead(uint8_t reg_addr, uint8_t *reg_d
   return result;
 }
 
-/**
- * @brief User defined function for I2C Write
- * 
- * @param reg_addr Register Address
- * @param reg_data Register Data
- * @param cnt count of Bytes
- * @param intf_ptr Pointer of user defined function
- *
- * @return sensor communication status
- *
- * @retval   0 : Success.
- * @retval > 0 : Warning.
- * @retval < 0 : Fail.
- */
 BME280_INTF_RET_TYPE BME::Bosch_BME280::I2CWrite(uint8_t reg_addr, const uint8_t *reg_data, uint32_t cnt, void *intf_ptr) {  
   uint8_t dev_addr = *((uint8_t *)intf_ptr);
   int8_t result {BME280_OK};
@@ -284,11 +193,6 @@ BME280_INTF_RET_TYPE BME::Bosch_BME280::I2CWrite(uint8_t reg_addr, const uint8_t
   return result;
 }
 
-/**
- * @brief User defined function for delay of micros 
- * 
- * @param period count of micro seconds
- */
 void BME::Bosch_BME280::delay_us(uint32_t period, void *intf_ptr __attribute__((unused))) {
   delayMicroseconds(period);
 }
