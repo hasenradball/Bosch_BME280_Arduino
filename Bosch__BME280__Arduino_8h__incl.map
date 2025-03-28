@@ -1,0 +1,7 @@
+<map id="src/Bosch_BME280_Arduino.h" name="src/Bosch_BME280_Arduino.h">
+<area shape="rect" id="Node000001" title="Bosch BME280 Arduino Wrapper Class based on BME280 Bosch driver v3.5.1." alt="" coords="17,5,230,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,89,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,33,72,71,68,67,109,29"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="113,79,285,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="137,29,179,67,175,71,134,33"/>
+</map>
