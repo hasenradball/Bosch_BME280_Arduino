@@ -1,12 +1,16 @@
+# Bosch BME280 Arduino
 [![Compile examples folder](https://github.com/hasenradball/Bosch_BME280_Arduino/actions/workflows/compile_examples.yml/badge.svg?branch=master)](https://github.com/hasenradball/Bosch_BME280_Arduino/actions/workflows/compile_examples.yml)
 [![Spell Check](https://github.com/hasenradball/Bosch_BME280_Arduino/actions/workflows/spell_checker.yml/badge.svg?branch=master)](https://github.com/hasenradball/Bosch_BME280_Arduino/actions/workflows/spell_checker.yml)
-# Bosch BME280 Arduino
+[![Generate Doxygen Documentation](https://github.com/hasenradball/Bosch_BME280_Arduino/actions/workflows/doxygen.yml/badge.svg?branch=master)](https://github.com/hasenradball/Bosch_BME280_Arduino/actions/workflows/doxygen.yml)
+
+
 based on Bosch BME280_driver v3.5.1
 
 ![BME280_Module](./docs/Bosch_BME280_module.jpeg)
 
 List of content<br>
 * [About](#about)<br>
+* [Library Documentation](#library-documentation)<br>
 * [Functionality](#functionality)<br>
 * [Namespace](#namespace)<br>
 * [Methods](#methods)<br>
@@ -23,6 +27,10 @@ This library is based on the Bosch Sensortec BME280 driver API v3.5.1, and is in
 The github repository of Bosch Sensortec is: [Github BOSCH Sensor Driver](https://github.com/BoschSensortec/BME280_driver)
 
 The website of the BME280 on Bosch Sensortec is: [Bosch Sensortec BME280](https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/)
+
+## Library Documentation
+The functional documentation of this wrapper library you will find in the provided [refman.pdf](./docs/latex/refman.pdf), or under github-pages [github.io](https://hasenradball.github.io/Bosch_BME280_Arduino).
+
 
 ## Functionality
 The original Bosch driver is included in this package and it has not been modified in any way.
