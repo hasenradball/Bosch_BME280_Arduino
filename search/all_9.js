@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['namespace_0',['Namespace',['../md_README.html#autotoc_md3',1,'']]]
+  ['measure_0',['measure',['../classBME_1_1Bosch__BME280.html#a55e030ce7e0ee5c81fec0d1a3a113e8e',1,'BME::Bosch_BME280']]],
+  ['measurement_1',['Measurement',['../md_README.html#autotoc_md9',1,'']]],
+  ['methods_2',['Methods',['../md_README.html#autotoc_md5',1,'']]]
 ];
