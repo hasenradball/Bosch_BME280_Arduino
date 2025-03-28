@@ -29,7 +29,7 @@ jobs:
         run: |
           ls -la docs
           mkdir docs/html/docs
-          cp docs/*.jpg docs/*.png docs/html/docs
+          cp docs/*.jpeg docs/html/docs
 
       # Disable Jekyll
       - name: Disable Jekyll
