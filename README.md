@@ -6,7 +6,7 @@
 
 based on Bosch BME280_driver v3.5.1
 
-![BME280_Module](./docs/Bosch_BME280_module.jpeg)
+<img src="./docs/Bosch_BME280_module.jpeg" alt="BME280-module" width="500"/>
 
 List of content<br>
 * [About](#about)<br>
