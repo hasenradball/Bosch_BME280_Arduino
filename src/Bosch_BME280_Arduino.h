@@ -129,7 +129,7 @@ namespace BME {
        */
       int8_t _sensor_status;
 
-      // internal members for adress and mode
+      // internal members for address and mode
       uint8_t _addr, _mode;
 
       /**
