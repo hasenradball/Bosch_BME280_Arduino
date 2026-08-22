@@ -2,7 +2,7 @@
  * @file    Bosch_BME280_Arduino.h
  * @author  Frank Häfele
  * @date    21.02.2022
- * @version 1.2.0
+ * @version 1.2.1
  * @brief   Bosch BME280 Arduino Wrapper Class based on BME280 Bosch driver v3.5.1
  */
 #ifndef _BOSCH_BME280_ARDUINO_H_
@@ -49,28 +49,28 @@ namespace BME {
        * 
        * @return temperature in degree celsius
        */
-      float getTemperature() const {return (float) _bme280_data.temperature;}
+      float getTemperature() const {return static_cast<float>(_bme280_data.temperature);}
 
       /**
        * @brief Get the Humidity from the internal BME data object
        * 
        * @return humidity in %
        */
-      float getHumidity() const {return (float) _bme280_data.humidity;}
+      float getHumidity() const {return static_cast<float>(_bme280_data.humidity);}
       
       /**
        * @brief Get the air pressure from the internal BME data object
        * 
        * @return air pressure in hecto pascal (hPa)
        */
-      float getPressure() const {return (float) _bme280_data.pressure / 100.0F;}
+      float getPressure() const {return static_cast<float>(_bme280_data.pressure * 0.1F);}
       
       /**
        * @brief Get the Sealevel For Altitude from the internal BME data object
        * 
        * @return sea level for altitude in meter
        */
-      float getSealevelForAltitude() const {return (float) _bme280_data.pressure / 100.0 / pow(1.0 - (_altitude / 44330.0), 5.255);}
+      float getSealevelForAltitude() const {return static_cast<float>(_bme280_data.pressure * 0.1F / pow(1.0F - (_altitude / 44330.0F), 5.255F));}
       
       /**
        * @brief Get the sensor status 
