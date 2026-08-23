@@ -10,7 +10,7 @@
 
 BME::Bosch_BME280::Bosch_BME280(uint8_t addr, float altitude, bool forced_mode) :
    _altitude {altitude},
-   setSensorStatus {BME280_E_NULL_PTR},
+   _sensor_status{BME280_E_NULL_PTR},
    _addr {addr}
 {
   // set internal _mode
@@ -49,10 +49,6 @@ int8_t BME::Bosch_BME280::measure() {
     result =  measure_normal_mode();
   }
   return result;
-}
-
-void BME::Bosch_BME280::setSensorStatus(int8_t sensor_status) {
-  _sensor_status = sensor_status;
 }
 
 int8_t BME::Bosch_BME280::measure_normal_mode() {

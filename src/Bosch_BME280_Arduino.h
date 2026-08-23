@@ -127,13 +127,6 @@ namespace BME {
       uint8_t _addr, _mode;
 
       /**
-       * @brief set sensor status
-       * 
-       * @param sensor_status 
-       */
-      void setSensorStatus(int8_t sensor_status);
-      
-      /**
        * @brief set sensor settings for forced or normal mode of BME280
        * 
        * @return sensor status
