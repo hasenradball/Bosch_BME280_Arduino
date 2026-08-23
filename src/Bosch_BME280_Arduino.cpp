@@ -2,7 +2,7 @@
  * @file    Bosch_BME280_Arduino.h
  * @author  Frank Häfele
  * @date    21.02.2022
- * @version 1.2.0
+ * @version 1.2.1
  * @brief   Bosch BME280 Arduino Wrapper Class based on BME280 Bosch driver v3.5.1
  */
 #include <Bosch_BME280_Arduino.h>
@@ -10,7 +10,7 @@
 
 BME::Bosch_BME280::Bosch_BME280(uint8_t addr, float altitude, bool forced_mode) :
    _altitude {altitude},
-   _sensor_status {BME280_OK},
+   _sensor_status{BME280_E_NULL_PTR},
    _addr {addr}
 {
   // set internal _mode
@@ -51,10 +51,6 @@ int8_t BME::Bosch_BME280::measure() {
   return result;
 }
 
-void BME::Bosch_BME280::setSensorStatus(int8_t sensor_status) {
-  _sensor_status = sensor_status;
-}
-
 int8_t BME::Bosch_BME280::measure_normal_mode() {
 	int8_t result = bme280_get_sensor_data(BME280_ALL, &_bme280_data, &_dev);
   bme280_print_error_codes("bme280_get_sensor_data", result);
@@ -84,30 +80,26 @@ int8_t BME::Bosch_BME280::setSensorSettings() {
   result = bme280_get_sensor_settings(&_settings, &_dev);
   bme280_print_error_codes("bme280_get_sensor_settings", result);
 
-  // Recommended settings of operation: => weather monitoring
+  // Default and recommended settings of operation: => weather monitoring
   _settings.osr_p = BME280_OVERSAMPLING_1X;
   _settings.osr_t = BME280_OVERSAMPLING_1X;
   _settings.osr_h = BME280_OVERSAMPLING_1X;
   _settings.filter = BME280_FILTER_COEFF_OFF;
+  _settings.standby_time = BME280_STANDBY_TIME_1000_MS;
+  uint8_t settings_selection_mask {0};
 
   if (_mode == BME280_POWERMODE_FORCED) {
     // ### --- Forced MODE Setting --- ###
-    uint8_t settings_sel = BME280_SEL_OSR_PRESS | BME280_SEL_OSR_TEMP | BME280_SEL_OSR_HUM | BME280_SEL_FILTER;
-    result = bme280_set_sensor_settings(settings_sel, &_settings, &_dev);
+    settings_selection_mask = BME280_SEL_OSR_PRESS | BME280_SEL_OSR_TEMP | BME280_SEL_OSR_HUM | BME280_SEL_FILTER;
+    result = bme280_set_sensor_settings(settings_selection_mask, &_settings, &_dev);
     bme280_print_error_codes("bme280_set_sensor_settings", result);
     result = bme280_set_sensor_mode(BME280_POWERMODE_FORCED, &_dev);
     bme280_print_error_codes("bme280_set_sensor_mode", result);
   }
   else {
     /* ### --- NORMAL MODE Setting --- ### */
-    _settings.standby_time = BME280_STANDBY_TIME_1000_MS;
-
-    uint8_t settings_sel = BME280_SEL_OSR_PRESS;
-    settings_sel |= BME280_SEL_OSR_TEMP;
-    settings_sel |= BME280_SEL_OSR_HUM;
-    settings_sel |= BME280_SEL_STANDBY;
-    settings_sel |= BME280_SEL_FILTER;
-    result = bme280_set_sensor_settings(settings_sel, &_settings, &_dev);
+    settings_selection_mask = BME280_SEL_OSR_PRESS | BME280_SEL_OSR_TEMP | BME280_SEL_OSR_HUM | BME280_SEL_FILTER | BME280_SEL_STANDBY;
+    result = bme280_set_sensor_settings(settings_selection_mask, &_settings, &_dev);
     bme280_print_error_codes("bme280_set_sensor_settings", result);
     result = bme280_set_sensor_mode(BME280_POWERMODE_NORMAL, &_dev);
     bme280_print_error_codes("bme280_set_sensor_mode", result);

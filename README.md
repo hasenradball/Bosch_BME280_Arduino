@@ -39,6 +39,20 @@ The Bosch BME280 sensor do have 3 operation modes.
 2. **Forced mode** - one single measurement is performed and returns then to sleep mode. The measurements can be obtained from the data registers.
 3. **Normal mode** - cyclic measurements are performed. The measurements can be obtained from the data registers.
 
+### Sensor Settings
+The sensor used three main settings to adapt the measurement campaign to your needs.
+
+a) sensor mode setting with standby time<br>
+b) Oversampling setting<br>
+c) IIR-Filter setting<br>
+
+**Sensor mode**: see also chapter 3.4 in datasheet.<br> Defines if a measurement is performed only once (forced mode) or cyclic (normal mode). In normal mode the standby can be defined by the parameter standby time.
+
+**Oversampling setting**: see also chapter 3.4.1 ...3.4.3 in datasheet.<br> With this setting you define how is the measurement done. No oversampling means the measurement is skipped, no measurement is done. Oversampling rates of x1...x16 defined how many measurements are taken.
+
+**IIR-Filter setting**: see also chapter 3.4.4 in datasheet. <br>Defines the step response behaviour of the IIR-Filter
+
+
 ## Namespace
 This Bosch BME280 wrapper uses a namespace as `BME` so if you construct the object you have to call:
 ```
