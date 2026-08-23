@@ -110,15 +110,28 @@ Functionality</h1>
 <li><b>Forced mode</b> - one single measurement is performed and returns then to sleep mode. The measurements can be obtained from the data registers.</li>
 <li><b>Normal mode</b> - cyclic measurements are performed. The measurements can be obtained from the data registers.</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<h2><a class="anchor" id="autotoc_md4"></a>
+Sensor Settings</h2>
+<p>The sensor used three main settings to adapt the measurement campaign to your needs.</p>
+<p>a) sensor mode setting with standby time<br  />
+ b) Oversampling setting<br  />
+ c) IIR-Filter setting<br  />
+</p>
+<p><b>Sensor mode</b>: see also chapter 3.4 in datasheet.<br  />
+ Defines if a measurement is performed only once (forced mode) or cyclic (normal mode). In normal mode the standby can be defined by the parameter standby time.</p>
+<p><b>Oversampling setting</b>: see also chapter 3.4.1 ...3.4.3 in datasheet.<br  />
+ With this setting you define how is the measurement done. No oversampling means the measurement is skipped, no measurement is done. Oversampling rates of x1...x16 defined how many measurements are taken.</p>
+<p><b>IIR-Filter setting</b>: see also chapter 3.4.4 in datasheet. <br  />
+Defines the step response behaviour of the IIR-Filter</p>
+<h1><a class="anchor" id="autotoc_md5"></a>
 Namespace</h1>
 <p>This Bosch BME280 wrapper uses a namespace as <code>BME</code> so if you construct the object you have to call: </p><div class="fragment"><div class="line">BME::Bosch_BME280 bme{BME280_I2C_ADDR_PRIM, 249.67F, false};</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md5"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md6"></a>
 Methods</h1>
-<h2><a class="anchor" id="autotoc_md6"></a>
+<h2><a class="anchor" id="autotoc_md7"></a>
 Public</h2>
 <p>The are the following public methods:</p>
-<h3><a class="anchor" id="autotoc_md7"></a>
+<h3><a class="anchor" id="autotoc_md8"></a>
 Constructor</h3>
 <p>You call the constructor with various parameters:</p><ul>
 <li>address of the BME280 (0x76 or 0x77)</li>
@@ -126,23 +139,23 @@ Constructor</h3>
 <li>a Bool - <code>true</code> if use forced mode or <code>false</code> if use normal mode <div class="fragment"><div class="line">Bosch_BME280(addr, altitude, forced_mode)</div>
 </div><!-- fragment --> </li>
 </ul>
-<h3><a class="anchor" id="autotoc_md8"></a>
+<h3><a class="anchor" id="autotoc_md9"></a>
 Init I²C and Sensor Init</h3>
 <div class="fragment"><div class="line">begin()</div>
-</div><!-- fragment --> <h3><a class="anchor" id="autotoc_md9"></a>
+</div><!-- fragment --> <h3><a class="anchor" id="autotoc_md10"></a>
 Measurement</h3>
 <div class="fragment"><div class="line">measure()</div>
-</div><!-- fragment --> <h3><a class="anchor" id="autotoc_md10"></a>
+</div><!-- fragment --> <h3><a class="anchor" id="autotoc_md11"></a>
 Data Query</h3>
 <p>These four methods returns the temperature, humidity and pressure in float. </p><div class="fragment"><div class="line">getTemperature()</div>
 <div class="line">getHumidity()</div>
 <div class="line">getPressure()</div>
 <div class="line">getSealevelForAltitude()</div>
-</div><!-- fragment --> <h3><a class="anchor" id="autotoc_md11"></a>
+</div><!-- fragment --> <h3><a class="anchor" id="autotoc_md12"></a>
 Sensor Status</h3>
 <p>Also it is possible to get and set the sensor status. </p><div class="fragment"><div class="line">int8_t status = getSensorStatus();</div>
 <div class="line">setSensorStatus(status);</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md12"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md13"></a>
 Example</h2>
 <p>See also in:</p><ul>
 <li><a href="https://github.com/hasenradball/Bosch_BME280_Arduino/blob/master/examples/Arduino_example/Arduino_example.ino">Arduino_example.ino</a></li>
@@ -190,7 +203,7 @@ Example</h2>
 <div class="line">      Serial.println(bme.getSealevelForAltitude());</div>
 <div class="line">    }</div>
 <div class="line">}</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md13"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md14"></a>
 Compatibility</h1>
 <p>Tested with:</p><ul>
 <li>Arduino Nano</li>
@@ -198,7 +211,7 @@ Compatibility</h1>
 <li>ESP32</li>
 <li>Arduino Nano 33 IOT</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md14"></a>
+<h1><a class="anchor" id="autotoc_md15"></a>
 Copyright</h1>
 <p>The Files of the original Bosch BME280 driver API:</p><ul>
 <li>bme280.c</li>
