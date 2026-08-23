@@ -83,13 +83,7 @@ namespace BME {
        */
       int8_t getSensorStatus() const {return _sensor_status;}
 
-      /**
-       * @brief set sensor status
-       * 
-       * @param sensor_status 
-       */
-      void setSensorStatus(int8_t sensor_status);
-      
+
     private:
       /**
        * @brief BME280 device structure (internal)
@@ -132,6 +126,13 @@ namespace BME {
       // internal members for address and mode
       uint8_t _addr, _mode;
 
+      /**
+       * @brief set sensor status
+       * 
+       * @param sensor_status 
+       */
+      void setSensorStatus(int8_t sensor_status);
+      
       /**
        * @brief set sensor settings for forced or normal mode of BME280
        * 
