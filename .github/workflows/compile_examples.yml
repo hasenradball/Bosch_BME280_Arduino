@@ -13,6 +13,7 @@ jobs:
             - source-path: ./
           sketch-paths:
             ./examples/Arduino_example/Arduino_example.ino
+            ./examples/Arduino_custom_settings/Arduino_custom_settings.ino
 
   build-esp8266:
     runs-on: ubuntu-latest

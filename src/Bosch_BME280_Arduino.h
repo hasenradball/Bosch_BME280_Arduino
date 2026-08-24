@@ -24,14 +24,15 @@ namespace BME {
       
       /**
        * @brief setup the I2C Wiring and init the Sensor
-       * 
+       *
+       * @param ptr_custom_sensor_settings pointer to struct of bme280_settings for usage of specific usecases
        * @return sensor status
        *
        * @retval   0: Success
        * @retval  >0: Warning
        * @retval  <0: Fail
        */
-      int8_t begin();
+      int8_t begin(bme280_settings *ptr_custom_sensor_settings = nullptr);
 
       /**
        * @brief measure function
@@ -129,13 +130,14 @@ namespace BME {
       /**
        * @brief set sensor settings for forced or normal mode of BME280
        * 
+       * @param ptr_custom_sensor_settings pointer to struct of bme280_settings for usage of specific usecases
        * @return sensor status
        * 
        * @retval   0: Success
        * @retval  >0: Warning
        * @retval  <0: Fail
        */
-      int8_t setSensorSettings();
+      int8_t setSensorSettings(bme280_settings *ptr_custom_sensor_settings);
       
       /**
        * @brief measurement in normal mode
