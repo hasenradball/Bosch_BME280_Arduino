@@ -10,7 +10,7 @@
 #include "BME280_API/bme280_defs.h"
 
 namespace BME280_Tools {
-   
+
    /**
     * @brief Get the Oversampling Factor for Oversampling Setting
     * 
@@ -18,15 +18,7 @@ namespace BME280_Tools {
     * @return constexpr int 
     */
    inline constexpr int getOversamplingFactor(uint8_t ovSetting) {
-      if (ovSetting == 0x00) {
-         return 0;
-      }
-      else if (ovSetting == BME280_OVERSAMPLING_MAX) {
-         return BME280_OVERSAMPLING_MAX;
-      }
-      else {
-         return (1 << (ovSetting - 1));
-      }
+      return ovSetting == 0x00 ? 0 : (1 << (ovSetting - 1));
    }
 
    /**
@@ -36,31 +28,15 @@ namespace BME280_Tools {
     * @return constexpr float standby time in milliseconds
     */
    inline constexpr float getStandbyTime(uint8_t standbySetting) {
-      if (standbySetting == BME280_STANDBY_TIME_0_5_MS) {
-         return 0.5f;
-      }
-      else if (standbySetting == BME280_STANDBY_TIME_62_5_MS) {
-         return 62.5f;
-      }
-      else if (standbySetting == BME280_STANDBY_TIME_125_MS) {
-         return 125.0f;
-      }
-      else if (standbySetting == BME280_STANDBY_TIME_250_MS) {
-         return 250.0f;
-      }
-      else if (standbySetting == BME280_STANDBY_TIME_500_MS) {
-         return 500.0f;
-      }
-      else if (standbySetting == BME280_STANDBY_TIME_1000_MS) {
-         return 1000.0f;
-      }
-      else if (standbySetting == BME280_STANDBY_TIME_10_MS) {
-         return 10.0f;
-      }
-      else if (standbySetting == BME280_STANDBY_TIME_20_MS) {
-         return 20.0f;
-      }
-      return 0.0f;
+      return standbySetting == BME280_STANDBY_TIME_0_5_MS   ? 0.5f :
+             standbySetting == BME280_STANDBY_TIME_62_5_MS  ? 62.5f :
+             standbySetting == BME280_STANDBY_TIME_125_MS   ? 125.0f :
+             standbySetting == BME280_STANDBY_TIME_250_MS   ? 250.0f :
+             standbySetting == BME280_STANDBY_TIME_500_MS   ? 500.0f :
+             standbySetting == BME280_STANDBY_TIME_1000_MS  ? 1000.0f :
+             standbySetting == BME280_STANDBY_TIME_10_MS    ? 10.0f :
+             standbySetting == BME280_STANDBY_TIME_20_MS    ? 20.0f :
+             0.0f;
    }
 
    /**
@@ -76,15 +52,14 @@ namespace BME280_Tools {
       //                    + (2.3 * T_oversampling)
       //                    + (2.3 * P_oversamplinmg + 0.575)
       //                    + (2.3 * H_oversampling + 0.575)
-      float measureTimeT = 2.3f * getOversamplingFactor(settings.osr_t);
-      float measureTimeP = 2.3f * getOversamplingFactor(settings.osr_p) + 0.575f;
-      float measureTimeH = 2.3f * getOversamplingFactor(settings.osr_h) + 0.575f;
-      float measureTime = 1.25f + measureTimeT + measureTimeP + measureTimeH;
+      float measureTime = 1.25f;
+      measureTime += 2.3f * getOversamplingFactor(settings.osr_t);
+      measureTime += 2.3f * getOversamplingFactor(settings.osr_p) + 0.575f;
+      measureTime += 2.3f * getOversamplingFactor(settings.osr_h) + 0.575f;
       float standbyTime = getStandbyTime(settings.standby_time);
 
       unsigned int measurementCycle = static_cast<unsigned int>(measureTime + standbyTime + 0.5f);
       return measurementCycle;
    }
-
 }
 #endif
