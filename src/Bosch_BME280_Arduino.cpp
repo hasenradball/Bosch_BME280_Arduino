@@ -36,7 +36,7 @@ int8_t BME::Bosch_BME280::begin(bme280_settings *ptr_custom_sensor_settings) {
   bme280_print_error_codes("bme280_init", _sensor_status);
   // if normal mode set settings for normal mode
   setSensorSettings(ptr_custom_sensor_settings);
-  delay(100);
+  delay(10);
   return _sensor_status;
 }
 
