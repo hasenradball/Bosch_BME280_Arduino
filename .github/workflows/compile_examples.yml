@@ -13,10 +13,10 @@ jobs:
             - source-path: ./
           sketch-paths:
             ./examples/Arduino_example/Arduino_example.ino
-            ./examples/Arduino_BME280_weather_monitoring/Arduino_BME280_weather_monitoring.ino
-            ./examples/Arduino_BME280_humidity_sensing/Arduino_BME280_humidity_sensing.ino
-            ./examples/Arduino_BME280_indoor_navigation/Arduino_BME280_indoor_navigation.ino
-            ./examples/Arduino_BME280_gaming/Arduino_BME280_gaming.ino
+            ./examples/BME280_weather_monitoring/BME280_weather_monitoring.ino
+            ./examples/BME280_humidity_sensing/BME280_humidity_sensing.ino
+            ./examples/BME280_indoor_navigation/BME280_indoor_navigation.ino
+            ./examples/BME280_gaming/BME280_gaming.ino
 
 
   build-esp8266:
@@ -52,6 +52,10 @@ jobs:
             - source-path: ./
           sketch-paths:
             ./examples/ESP8266_example/ESP8266_example.ino
+            ./examples/BME280_weather_monitoring/BME280_weather_monitoring.ino
+            ./examples/BME280_humidity_sensing/BME280_humidity_sensing.ino
+            ./examples/BME280_indoor_navigation/BME280_indoor_navigation.ino
+            ./examples/BME280_gaming/BME280_gaming.ino
 
   build-esp32:
     runs-on: ubuntu-latest
@@ -83,3 +87,7 @@ jobs:
             - source-path: ./
           sketch-paths:
             ./examples/ESP32_example/ESP32_example.ino
+            ./examples/BME280_weather_monitoring/BME280_weather_monitoring.ino
+            ./examples/BME280_humidity_sensing/BME280_humidity_sensing.ino
+            ./examples/BME280_indoor_navigation/BME280_indoor_navigation.ino
+            ./examples/BME280_gaming/BME280_gaming.ino

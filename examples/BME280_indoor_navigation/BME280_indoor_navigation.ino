@@ -31,11 +31,16 @@ void setup() {
       yield();
     }
 
-#if defined (__AVR__)
-   Wire.begin();
-#elif defined (ESP8266)
-   Wire.begin(0, 2);
+   // SDA, SCL needed for ESPs
+#if defined (ESP8266)
+  Wire.begin(SDA, SCL);
+#elif defined (ESP32)
+  Wire.setPins(SDA, SCL);
+  Wire.begin();
+#else
+  Wire.begin();
 #endif
+
    // init Bosch BME 280 Sensor
    if (bme.begin(&p3_indoor_navigation) != 0) {
       Serial.println("\n\t>>> ERROR: Init of Bosch BME280 Sensor failed! <<<");
