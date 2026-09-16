@@ -2,7 +2,6 @@
  * @file    Bosch_BME280_Arduino.h
  * @author  Frank Häfele
  * @date    21.02.2022
- * @version 1.2.1
  * @brief   Bosch BME280 Arduino Wrapper Class based on BME280 Bosch driver v3.5.1
  */
 #ifndef _BOSCH_BME280_ARDUINO_H_
@@ -24,14 +23,15 @@ namespace BME {
       
       /**
        * @brief setup the I2C Wiring and init the Sensor
-       * 
+       *
+       * @param ptr_custom_sensor_settings pointer to struct of bme280_settings for usage of specific usecases
        * @return sensor status
        *
        * @retval   0: Success
        * @retval  >0: Warning
        * @retval  <0: Fail
        */
-      int8_t begin();
+      int8_t begin(bme280_settings *ptr_custom_sensor_settings = nullptr);
 
       /**
        * @brief measure function
@@ -129,13 +129,14 @@ namespace BME {
       /**
        * @brief set sensor settings for forced or normal mode of BME280
        * 
+       * @param ptr_custom_sensor_settings pointer to struct of bme280_settings for usage of specific usecases
        * @return sensor status
        * 
        * @retval   0: Success
        * @retval  >0: Warning
        * @retval  <0: Fail
        */
-      int8_t setSensorSettings();
+      int8_t setSensorSettings(bme280_settings *ptr_custom_sensor_settings);
       
       /**
        * @brief measurement in normal mode

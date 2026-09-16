@@ -20,7 +20,6 @@ BME::Bosch_BME280 sensor_bme280{BME280_I2C_ADDR_PRIM, 249.76F, true};
 // ============================================
 void setup() {
    WiFi.mode(WIFI_OFF);
-   // Serielle Schnittstelle initialisieren
    Serial.begin(115200);
    while (!Serial) {
       yield();
@@ -45,7 +44,7 @@ void setup() {
 // ============================================
 
 void loop() {
-  static unsigned long last_ms {10000};
+  static unsigned long last_ms {millis() - 10000};
   unsigned long ms {millis()};
 
   if(ms - last_ms >= 10000) {

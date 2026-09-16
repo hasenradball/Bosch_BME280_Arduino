@@ -51,7 +51,7 @@ void setup() {
 // ============================================
 
 void loop() {
-  static unsigned long last_ms {10000};
+  static unsigned long last_ms {millis() - 10000};
   unsigned long ms {millis()};
 
   if(ms - last_ms >= 10000) {

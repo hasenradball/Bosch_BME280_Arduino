@@ -13,6 +13,7 @@ getPressure             KEYWORD2
 getSealevelForAltitude  KEYWORD2
 getSensorStatus         KEYWORD2
 setSensorStatus         KEYWORD2
+measurementCycleTime    KEYWORD2
 
 
 # Constants (LITERAL1)
