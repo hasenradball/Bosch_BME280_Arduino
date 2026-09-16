@@ -2,7 +2,6 @@
  * @file    Bosch_BME280_Arduino.h
  * @author  Frank Häfele
  * @date    21.02.2022
- * @version 1.2.1
  * @brief   Bosch BME280 Arduino Wrapper Class based on BME280 Bosch driver v3.5.1
  */
 #ifndef _BOSCH_BME280_ARDUINO_H_
