@@ -87,9 +87,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7ee9a1c305ce52049f5cd24b1a174a5d" id="r_a7ee9a1c305ce52049f5cd24b1a174a5d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBME_1_1Bosch__BME280.html#a7ee9a1c305ce52049f5cd24b1a174a5d">Bosch_BME280</a> (uint8_t addr=BME280_I2C_ADDR_PRIM, float altitude=249.67F, bool forced_mode=true)</td></tr>
 <tr class="memdesc:a7ee9a1c305ce52049f5cd24b1a174a5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new bme::Bosch_BME280 Object.  <br /></td></tr>
 <tr class="separator:a7ee9a1c305ce52049f5cd24b1a174a5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8322c1f400a2facd52e3ca31e125b820" id="r_a8322c1f400a2facd52e3ca31e125b820"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBME_1_1Bosch__BME280.html#a8322c1f400a2facd52e3ca31e125b820">begin</a> ()</td></tr>
-<tr class="memdesc:a8322c1f400a2facd52e3ca31e125b820"><td class="mdescLeft">&#160;</td><td class="mdescRight">setup the I2C Wiring and init the Sensor  <br /></td></tr>
-<tr class="separator:a8322c1f400a2facd52e3ca31e125b820"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4017284511401d1d65b7d5a0d57612ee" id="r_a4017284511401d1d65b7d5a0d57612ee"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBME_1_1Bosch__BME280.html#a4017284511401d1d65b7d5a0d57612ee">begin</a> (bme280_settings *ptr_custom_sensor_settings=nullptr)</td></tr>
+<tr class="memdesc:a4017284511401d1d65b7d5a0d57612ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">setup the I2C Wiring and init the Sensor  <br /></td></tr>
+<tr class="separator:a4017284511401d1d65b7d5a0d57612ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55e030ce7e0ee5c81fec0d1a3a113e8e" id="r_a55e030ce7e0ee5c81fec0d1a3a113e8e"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBME_1_1Bosch__BME280.html#a55e030ce7e0ee5c81fec0d1a3a113e8e">measure</a> ()</td></tr>
 <tr class="memdesc:a55e030ce7e0ee5c81fec0d1a3a113e8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">measure function  <br /></td></tr>
 <tr class="separator:a55e030ce7e0ee5c81fec0d1a3a113e8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -163,8 +163,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8322c1f400a2facd52e3ca31e125b820" name="a8322c1f400a2facd52e3ca31e125b820"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8322c1f400a2facd52e3ca31e125b820">&#9670;&#160;</a></span>begin()</h2>
+<a id="a4017284511401d1d65b7d5a0d57612ee" name="a4017284511401d1d65b7d5a0d57612ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4017284511401d1d65b7d5a0d57612ee">&#9670;&#160;</a></span>begin()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -172,13 +172,20 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">int8_t BME::Bosch_BME280::begin </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">bme280_settings *&#160;</td>
+          <td class="paramname"><em>ptr_custom_sensor_settings</em> = <code>nullptr</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>setup the I2C Wiring and init the Sensor </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ptr_custom_sensor_settings</td><td>pointer to struct of bme280_settings for usage of specific usecases </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>sensor status</dd></dl>
 <dl class="retval"><dt>Return values</dt><dd>
   <table class="retval">

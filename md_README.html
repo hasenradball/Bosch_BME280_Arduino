@@ -120,7 +120,11 @@ Sensor Settings</h2>
 <p><b>Sensor mode</b>: see also chapter 3.4 in datasheet.<br  />
  Defines if a measurement is performed only once (forced mode) or cyclic (normal mode). In normal mode the standby can be defined by the parameter standby time.</p>
 <p><b>Oversampling setting</b>: see also chapter 3.4.1 ...3.4.3 in datasheet.<br  />
- With this setting you define how is the measurement done. No oversampling means the measurement is skipped, no measurement is done. Oversampling rates of x1...x16 defined how many measurements are taken.</p>
+With this setting you define how is the measurement done.<br  />
+No oversampling means the measurement is skipped, no measurement is done.<br  />
+Oversampling rates of x1...x16 defined how many measurements are taken.<br  />
+x1 means one shot measurement, x2 means average of two measurements and x16 means average of 16 measurements.<br  />
+The higher the oversampling rate the higher the current consumption of the sensor but the lower the signal noise.</p>
 <p><b>IIR-Filter setting</b>: see also chapter 3.4.4 in datasheet. <br  />
 Defines the step response behaviour of the IIR-Filter</p>
 <h1><a class="anchor" id="autotoc_md5"></a>

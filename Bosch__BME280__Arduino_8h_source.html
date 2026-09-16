@@ -84,18 +84,18 @@ $(document).ready(function() { init_codefold(0); });
 </div><!--header-->
 <div class="contents">
 <a href="Bosch__BME280__Arduino_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#ifndef _BOSCH_BME280_ARDUINO_H_</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define _BOSCH_BME280_ARDUINO_H_</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;BME280_API/bme280.h&quot;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>BME {</div>
-<div class="foldopen" id="foldopen00014" data-start="{" data-end="};">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="classBME_1_1Bosch__BME280.html">   14</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classBME_1_1Bosch__BME280.html">Bosch_BME280</a> {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>      <span class="keyword">explicit</span> <a class="code hl_class" href="classBME_1_1Bosch__BME280.html">Bosch_BME280</a>(uint8_t addr = BME280_I2C_ADDR_PRIM, <span class="keywordtype">float</span> altitude = 249.67F, <span class="keywordtype">bool</span> forced_mode = <span class="keyword">true</span>);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>      </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>      int8_t <a class="code hl_function" href="classBME_1_1Bosch__BME280.html#a8322c1f400a2facd52e3ca31e125b820">begin</a>();</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#ifndef _BOSCH_BME280_ARDUINO_H_</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#define _BOSCH_BME280_ARDUINO_H_</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;Arduino.h&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;BME280_API/bme280.h&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>BME {</div>
+<div class="foldopen" id="foldopen00013" data-start="{" data-end="};">
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="classBME_1_1Bosch__BME280.html">   13</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classBME_1_1Bosch__BME280.html">Bosch_BME280</a> {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>      <span class="keyword">explicit</span> <a class="code hl_class" href="classBME_1_1Bosch__BME280.html">Bosch_BME280</a>(uint8_t addr = BME280_I2C_ADDR_PRIM, <span class="keywordtype">float</span> altitude = 249.67F, <span class="keywordtype">bool</span> forced_mode = <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>      </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>      int8_t <a class="code hl_function" href="classBME_1_1Bosch__BME280.html#a4017284511401d1d65b7d5a0d57612ee">begin</a>(bme280_settings *ptr_custom_sensor_settings = <span class="keyword">nullptr</span>);</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>      int8_t <a class="code hl_function" href="classBME_1_1Bosch__BME280.html#a55e030ce7e0ee5c81fec0d1a3a113e8e">measure</a>();</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>      </div>
@@ -126,29 +126,29 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>      <span class="comment">// internal members for address and mode</span></div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>      uint8_t _addr, _mode;</div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>      int8_t setSensorSettings();</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>      </div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>      int8_t measure_normal_mode();</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>      int8_t measure_forced_mode();</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>      <span class="keywordtype">void</span> bme280_print_error_codes(<span class="keyword">const</span> <span class="keywordtype">char</span> *api_name, int8_t result);</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>      <span class="keyword">static</span> BME280_INTF_RET_TYPE I2CRead(uint8_t reg_addr, uint8_t *reg_data, uint32_t cnt, <span class="keywordtype">void</span> *intf_ptr);</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>      <span class="keyword">static</span> BME280_INTF_RET_TYPE I2CWrite(uint8_t reg_addr, <span class="keyword">const</span> uint8_t *reg_data, uint32_t cnt, <span class="keywordtype">void</span> *intf_ptr);</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span> </div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>      <span class="keyword">static</span> <span class="keywordtype">void</span> delay_us(uint32_t period, <span class="keywordtype">void</span> *intf_ptr);</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>  };</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>      int8_t setSensorSettings(bme280_settings *ptr_custom_sensor_settings);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>      </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>      int8_t measure_normal_mode();</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>      int8_t measure_forced_mode();</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>      <span class="keywordtype">void</span> bme280_print_error_codes(<span class="keyword">const</span> <span class="keywordtype">char</span> *api_name, int8_t result);</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>      <span class="keyword">static</span> BME280_INTF_RET_TYPE I2CRead(uint8_t reg_addr, uint8_t *reg_data, uint32_t cnt, <span class="keywordtype">void</span> *intf_ptr);</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>      <span class="keyword">static</span> BME280_INTF_RET_TYPE I2CWrite(uint8_t reg_addr, <span class="keyword">const</span> uint8_t *reg_data, uint32_t cnt, <span class="keywordtype">void</span> *intf_ptr);</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>      <span class="keyword">static</span> <span class="keywordtype">void</span> delay_us(uint32_t period, <span class="keywordtype">void</span> *intf_ptr);</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>  };</div>
 </div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>}</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aclassBME_1_1Bosch__BME280_html"><div class="ttname"><a href="classBME_1_1Bosch__BME280.html">BME::Bosch_BME280</a></div><div class="ttdef"><b>Definition</b> Bosch_BME280_Arduino.h:14</div></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>}</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aclassBME_1_1Bosch__BME280_html"><div class="ttname"><a href="classBME_1_1Bosch__BME280.html">BME::Bosch_BME280</a></div><div class="ttdef"><b>Definition</b> Bosch_BME280_Arduino.h:13</div></div>
 <div class="ttc" id="aclassBME_1_1Bosch__BME280_html_a0dd91abaa7cc0ff11e30a8b3b6234cb3"><div class="ttname"><a href="classBME_1_1Bosch__BME280.html#a0dd91abaa7cc0ff11e30a8b3b6234cb3">BME::Bosch_BME280::getHumidity</a></div><div class="ttdeci">float getHumidity() const</div><div class="ttdoc">Get the Humidity from the internal BME data object.</div><div class="ttdef"><b>Definition</b> Bosch_BME280_Arduino.h:59</div></div>
 <div class="ttc" id="aclassBME_1_1Bosch__BME280_html_a29e3baca7a661580a3b28deb75058b24"><div class="ttname"><a href="classBME_1_1Bosch__BME280.html#a29e3baca7a661580a3b28deb75058b24">BME::Bosch_BME280::getSealevelForAltitude</a></div><div class="ttdeci">float getSealevelForAltitude() const</div><div class="ttdoc">Get the Sealevel For Altitude from the internal BME data object.</div><div class="ttdef"><b>Definition</b> Bosch_BME280_Arduino.h:73</div></div>
-<div class="ttc" id="aclassBME_1_1Bosch__BME280_html_a55e030ce7e0ee5c81fec0d1a3a113e8e"><div class="ttname"><a href="classBME_1_1Bosch__BME280.html#a55e030ce7e0ee5c81fec0d1a3a113e8e">BME::Bosch_BME280::measure</a></div><div class="ttdeci">int8_t measure()</div><div class="ttdoc">measure function</div><div class="ttdef"><b>Definition</b> Bosch_BME280_Arduino.cpp:43</div></div>
+<div class="ttc" id="aclassBME_1_1Bosch__BME280_html_a4017284511401d1d65b7d5a0d57612ee"><div class="ttname"><a href="classBME_1_1Bosch__BME280.html#a4017284511401d1d65b7d5a0d57612ee">BME::Bosch_BME280::begin</a></div><div class="ttdeci">int8_t begin(bme280_settings *ptr_custom_sensor_settings=nullptr)</div><div class="ttdoc">setup the I2C Wiring and init the Sensor</div><div class="ttdef"><b>Definition</b> Bosch_BME280_Arduino.cpp:24</div></div>
+<div class="ttc" id="aclassBME_1_1Bosch__BME280_html_a55e030ce7e0ee5c81fec0d1a3a113e8e"><div class="ttname"><a href="classBME_1_1Bosch__BME280.html#a55e030ce7e0ee5c81fec0d1a3a113e8e">BME::Bosch_BME280::measure</a></div><div class="ttdeci">int8_t measure()</div><div class="ttdoc">measure function</div><div class="ttdef"><b>Definition</b> Bosch_BME280_Arduino.cpp:42</div></div>
 <div class="ttc" id="aclassBME_1_1Bosch__BME280_html_a7f8fc0428fbc00ec3526b3c9dfd84f51"><div class="ttname"><a href="classBME_1_1Bosch__BME280.html#a7f8fc0428fbc00ec3526b3c9dfd84f51">BME::Bosch_BME280::getTemperature</a></div><div class="ttdeci">float getTemperature() const</div><div class="ttdoc">Get the temperature from the internal BME data object.</div><div class="ttdef"><b>Definition</b> Bosch_BME280_Arduino.h:52</div></div>
-<div class="ttc" id="aclassBME_1_1Bosch__BME280_html_a8322c1f400a2facd52e3ca31e125b820"><div class="ttname"><a href="classBME_1_1Bosch__BME280.html#a8322c1f400a2facd52e3ca31e125b820">BME::Bosch_BME280::begin</a></div><div class="ttdeci">int8_t begin()</div><div class="ttdoc">setup the I2C Wiring and init the Sensor</div><div class="ttdef"><b>Definition</b> Bosch_BME280_Arduino.cpp:25</div></div>
 <div class="ttc" id="aclassBME_1_1Bosch__BME280_html_a89abdead72a9cc6258d082a2689ef92b"><div class="ttname"><a href="classBME_1_1Bosch__BME280.html#a89abdead72a9cc6258d082a2689ef92b">BME::Bosch_BME280::getPressure</a></div><div class="ttdeci">float getPressure() const</div><div class="ttdoc">Get the air pressure from the internal BME data object.</div><div class="ttdef"><b>Definition</b> Bosch_BME280_Arduino.h:66</div></div>
 <div class="ttc" id="aclassBME_1_1Bosch__BME280_html_af62dc6db2bbfcd899f22476fcc4ede3b"><div class="ttname"><a href="classBME_1_1Bosch__BME280.html#af62dc6db2bbfcd899f22476fcc4ede3b">BME::Bosch_BME280::getSensorStatus</a></div><div class="ttdeci">int8_t getSensorStatus() const</div><div class="ttdoc">Get the sensor status.</div><div class="ttdef"><b>Definition</b> Bosch_BME280_Arduino.h:84</div></div>
 </div><!-- fragment --></div><!-- contents -->
